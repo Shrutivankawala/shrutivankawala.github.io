@@ -16,6 +16,10 @@ body {
   line-height: 1.6;
 }
 
+.intro-hint span {
+  font-weight: 600;
+  color: #1b4965;
+}
 /* Top header */
 .site-header {
   position: sticky;
@@ -81,6 +85,9 @@ body {
 .hero-main h1 {
   font-size: 2.4rem;
   margin-bottom: 0.6rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem; /* space between "Hi, I'm" and the dynamic text */
 }
 
 .highlight {
@@ -108,6 +115,38 @@ body {
   flex-wrap: wrap;
   gap: 0.4rem;
   margin-bottom: 1.1rem;
+}
+
+.typewriter {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: baseline;
+  /* reserve space so layout doesn't shrink when text is erased */
+  min-width: 18ch; /* adjust if needed; 18 characters fits "Marketing Analyst" */
+}
+
+.caret {
+  display: inline-block;
+  align-self: center;
+  width: 2px;
+  height: 1em;
+  margin-left: 4px;
+  background-color: #111827;
+  animation: caret-blink 1s steps(2, start) infinite;
+}
+
+/* If the highlight background is light, make cursor darker on top of it */
+.highlight.typewriter .caret {
+  background-color: #111827;
+}
+
+@keyframes caret-blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
 }
 
 .chip {
@@ -243,29 +282,62 @@ body {
 .hat-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-bottom: 1.25rem;
+  gap: 0.75rem;
+  margin: 0.75rem 0 1.4rem;
 }
 
 .hat-tab {
-  padding: 0.45rem 1rem;
+  padding: 0.55rem 1.3rem;
   border-radius: 999px;
   border: 1px solid #cbd5e1;
-  background: #f8fafc;
+  background: linear-gradient(135deg, #f9fafb, #eef2ff);
   cursor: pointer;
   font-size: 0.9rem;
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  transition: background 0.12s ease, transform 0.12s ease, border-color 0.12s ease;
+  gap: 0.4rem;
+  box-shadow: 0 4px 10px rgba(148, 163, 184, 0.3);
+  position: relative;
+  overflow: hidden;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+/* subtle glow layer */
+.hat-tab::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.hat-tab:hover {
+  transform: translateY(-2px);
+  border-color: #93c5fd;
+  box-shadow: 0 8px 20px rgba(148, 163, 184, 0.5);
+}
+
+.hat-tab:hover::after {
+  opacity: 1;
 }
 
 .hat-tab.active {
-  background: #1b4965;
+  background: linear-gradient(135deg, #1b4965, #3b82f6);
   color: #fff;
-  border-color: #1b4965;
-  transform: translateY(-1px);
+  border-color: transparent;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.6);
 }
+
+.hat-tab.active::after {
+  opacity: 1;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.22), transparent 60%);
+}
+
 
 /* Hat sections */
 .hat-section {

@@ -25,7 +25,14 @@
     <div class="hero-inner">
       <div class="hero-main">
         <p class="hero-tag">Business &amp; Marketing Analytics · Social Media Strategy</p>
-        <h1>Hi, I’m <span class="highlight">Shruti Vankawala</span></h1>
+        <h1>
+          Hi, I’m
+          <span class="highlight typewriter">
+            <span id="type-target"></span>
+            <span class="caret"></span>
+          </span>
+        </h1>
+
         <p class="hero-text">
           I combine business analysis, data visualization, and digital marketing to help
           companies make confident decisions, increase revenue, and grow their online presence.
@@ -314,6 +321,57 @@
         });
       });
     });
+
+    // Typewriter effect for name & roles
+    const typeTarget = document.getElementById("type-target");
+
+    const titles = [
+      "Shruti Vankawala",
+      "Business Analyst",
+      "Marketing Analyst",
+      "Social Media Analyst"
+    ];
+
+    let titleIndex = 0;
+    let charIndex = 0;
+
+    const typingSpeed = 120;      // ms between each letter typed
+    const erasingSpeed = 60;      // ms between each letter erased
+    const delayBetweenTitles = 1000; // pause when a word is fully shown
+
+    function typeTitle() {
+      if (!typeTarget) return;
+
+      if (charIndex < titles[titleIndex].length) {
+        typeTarget.textContent += titles[titleIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(typeTitle, typingSpeed);
+      } else {
+        // full word shown, pause, then start erasing
+        setTimeout(eraseTitle, delayBetweenTitles);
+      }
+    }
+
+    function eraseTitle() {
+      if (!typeTarget) return;
+
+      if (charIndex > 0) {
+        typeTarget.textContent = titles[titleIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(eraseTitle, erasingSpeed);
+      } else {
+        // move to next title
+        titleIndex++;
+        if (titleIndex >= titles.length) {
+          titleIndex = 0;
+        }
+        setTimeout(typeTitle, 400);
+      }
+    }
+
+    if (typeTarget) {
+      typeTitle();
+    }
   </script>
 </body>
 </html>
